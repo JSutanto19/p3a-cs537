@@ -377,7 +377,7 @@ int mprotect(void* addr, int len){
      return - 1;
    }
 
-   pte_t pte = walkpgdir(proc -> pgdir,(void*)va, 0);
+   pte_t *pte = walkpgdir(proc -> pgdir,(void*)va, 0);
    
    if(pte){
 
@@ -403,7 +403,7 @@ int mprotect(void* addr, int len){
       }
    }
 
-   lcr3(PADDR(proc -> pgdir))
+   lcr3(PADDR(proc -> pgdir));
    return 0;
 }
 
@@ -415,7 +415,7 @@ int munprotect(void* addr, int len){
       return -1;
     }
     
-    pte_t pte = walkpgdir(proc -> pgdir, (void*) va, 0);
+    pte_t* pte = walkpgdir(proc -> pgdir, (void*) va, 0);
 
     if(pte){
       
