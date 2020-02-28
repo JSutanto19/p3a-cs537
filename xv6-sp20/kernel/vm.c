@@ -371,80 +371,179 @@ copyout(pde_t *pgdir, uint va, void *p, uint len)
   return 0;
 }
 
-int mprotect(void* addr, int len){
-   // go through all pages starting at addr
-   // stop at len 
-   // if permission is read only
-       //countinue 
-   // otherwise change permission of len to read only 
-   int va = (uint)addr;
-   //check if page is page aligned 
-   if(va % PGSIZE != 0){
-     return - 1;
-   }
+// int mprotect(void* addr, int len){
+//    // otherwise change permission of len to read only 
+//    int va = (uint)addr;
+//    //check if page is page aligned 
+//    if(va % PGSIZE != 0){
+//      return - 1;
+//    }
 
-   pte_t *pte = walkpgdir(proc -> pgdir,(void*)va, 0);
+//    pte_t *pte = walkpgdir(proc -> pgdir,(void*)va, 0);
+//  //  cprintf("%p\n", pte);
    
-   if(pte != 0){
+//    if(pte != 0){
+//  //cprintf("va before loop: %d\n", va );
+//       for(uint i = (uint) PGROUNDDOWN(va) ; i < (va + len * PGSIZE); i += PGSIZE){
+//   //cprintf("value of i: %d\n", i);
+//          if((pte = walkpgdir(proc -> pgdir, (void*)i, 0)) == 0){
+//          //  cprintf("here 1\n");
+//          //  cprintf("%p\n", pte);
+//            return -1;
+//          }
 
-      for(int i = va ; i < (va + len * PGSIZE); i += PGSIZE){
+//    //cprintf("%d\n",i);
+//    //cprintf("%d\n",va);
          
-         if((pte = walkpgdir(proc -> pgdir, (void*)va, 0)) == 0){
-           return -1;
-         }
-         
-         //if user or present bit is zero return -1
-         if((*pte & PTE_U) == 0 || (*pte & PTE_P) == 0){ 
-           return -1;
-         }
+//          //if user or present bit is zero return -1
+//         // if((*pte & PTE_U) == 0){
+//         //   cprintf("here 2\n");
+//         //   return -1;
+//         // }
 
-      }
+//        //  if((*pte & PTE_P) == 0){
+//        //    cprintf("here 3\n");
+//        //    return -1;     
+//        //  }
 
-      for(int i = va; i < (va + len * PGSIZE); i += PGSIZE){
-        pte = walkpgdir(proc -> pgdir, (void*)va, 0);
+//       }
+
+//       for(int i = va; i < (va + len * PGSIZE); i += PGSIZE){
+//         pte = walkpgdir(proc -> pgdir, (void*)i, 0);
         
-        //clear write bit of pte 
-        *pte = PADDR(*pte) & (~PTE_W);
+//         //clear write bit of pte 
+//         *pte = PADDR(*pte) & (~PTE_W);
 
-      }
-   }
+//       }
+//    }
 
-   lcr3(PADDR(proc -> pgdir));
-   return 0;
-}
+//  //  lcr3(PADDR(proc -> pgdir));
+//    return 0;
+// }
 
-int munprotect(void* addr, int len){
+
+
+// int munprotect(void* addr, int len){
     
-    int va = (uint) addr;
+//     int va = (uint) addr;
     
-    if(va % PGSIZE != 0){
+//     if(va % PGSIZE != 0){
+//       return -1;
+//     }
+    
+//     pte_t* pte = walkpgdir(proc -> pgdir, (void*) va, 0);
+
+//     if(pte != 0){
+      
+//       for(int i = va; i < (va + len * PGSIZE); i += PGSIZE){
+//         if((pte = walkpgdir(proc -> pgdir, (void*)i, 0)) == 0){
+//           return -1;
+//         }
+
+//         if((*pte & PTE_U) == 0 || (*pte & PTE_P) == 0){ 
+//           return -1;
+//         }
+//       }
+
+//       for(int i = va; i < (va + len * PGSIZE); i += PGSIZE){
+//         pte = walkpgdir(proc -> pgdir, (void*)i, 0);
+//         *pte = PADDR(*pte) | (PTE_W);
+//       }
+//     }
+
+//     lcr3(PADDR(proc -> pgdir));
+//     return 0;
+// }
+
+int mprotect(void *addr, int len){
+	  if(len <= 0){
       return -1;
     }
-    
-    pte_t* pte = walkpgdir(proc -> pgdir, (void*) va, 0);
+    cprintf("len: %d\n", len);
+    uint va;
+	  va = (uint)addr;
+    //PGSIZE = 4096
+    cprintf("%d\n", va);
 
-    if(pte != 0){
+	  if((va % PGSIZE) != 0){
+	    return -1;
+	  }
+   
+    uint numPages = len * PGSIZE;
+    uint totalPages = va + numPages;
+	
+	  pte_t *pte;
+	  // pte = walkpgdir(proc->pgdir, (void*)va, 0);
+	  //if(pte){
+	    uint i = 0;
+      uint iterations = 0;
       
-      for(int i = va; i < (va + len * PGSIZE); i += PGSIZE){
-        if((pte = walkpgdir(proc -> pgdir, (void*)va, 0)) == 0){
-          return -1;
-        }
+      cprintf("totalPages: %d\n", totalPages);
+      cprintf("i: %d\n", i);
 
-        if((*pte & PTE_U) == 0 || (*pte & PTE_P) == 0){ 
-          return -1;
-        }
-      }
+	    for (i = va; i < (va + numPages); i += PGSIZE){
+	        if((pte = walkpgdir(proc->pgdir, (void*)i, 0)) == 0){
+	              cprintf("walkpgdir return 0\n");
+                cprintf("iterations ran: %d\n", iterations);
+               // cprintf("%d\n", i);
+                return -1;
+          }
+          
 
-      for(int i = va; i < (va + len * PGSIZE); i += PGSIZE){
-        pte = walkpgdir(proc -> pgdir, (void*)va, 0);
-        *pte = PADDR(*pte) | (PTE_W);
-      }
-    }
-
-    lcr3(PADDR(proc -> pgdir));
-    return 0;
+	        // if((*pte & PTE_U) == 0){
+          //   cprintf("user bit is not set\n");
+          //   cprintf("%d\n", i);
+          //   return -1;
+          // } 
+          
+          // if((*pte & PTE_P) == 0){
+          //     cprintf("pte is not present\n");
+          //     cprintf("%d\n", i);
+	        //     return -1;
+          // }
+          iterations++;
+      
+          
+	    }
+	    
+	    for (i = va; i < (va + (len) *PGSIZE) ; i += PGSIZE){
+	      //cprintf("\nPTE %p\n", pte);
+	        pte = walkpgdir(proc->pgdir, (void*)i, 0);
+	        *pte = PADDR(*pte) & (~PTE_W) ;
+	      }
+	        //cprintf("came here\n");
+	  //}
+	  lcr3(PADDR(proc->pgdir));
+	  return 0;
 }
+	
+int munprotect(void *addr, int len){
+	  int va;
+	  va = (uint)addr;
+	  if((va % PGSIZE) != 0){
+	    return -1;
+	  }
+	
+	  pte_t *pte;
+	  pte = walkpgdir(proc->pgdir, (void*)va, 0);
+	  if(pte){
+	    int i = 0;
+	    for (i = va; i < (va + len*PGSIZE); i += PGSIZE){
+	        if((pte = walkpgdir(proc->pgdir, (void*)i, 0)) == 0)
+	            return -1;
+	        if((*pte & PTE_U) == 0 || (*pte & PTE_P) == 0)
+	            return -1;
+	    }
+	
+	    for (i = va; i < (va + (len) *PGSIZE) ; i += PGSIZE){
+	      //cprintf("\nPTE %p\n", pte);
+	        pte = walkpgdir(proc->pgdir, (void*)i, 0);
+	        *pte = PADDR(*pte) | (PTE_W) ;
+	      }
+	        //cprintf("came here\n");
+	  }
+	  lcr3(PADDR(proc->pgdir));
+	  return 0;
+	}
 
-int dump_allocated(int *frames, int numframes) {
-  return 1;    
-}
+

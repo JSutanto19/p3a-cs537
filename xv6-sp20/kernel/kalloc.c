@@ -69,3 +69,7 @@ kalloc(void)
   return (char*)r;
 }
 
+int dump_allocated(int *frames, int numframes) {
+  return 1;    
+}
+
