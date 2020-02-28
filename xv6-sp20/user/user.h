@@ -27,6 +27,7 @@ int sleep(int);
 int uptime(void);
 int mprotect(void*, int); 
 int munprotect(void*, int);
+int dump_allocated(int*, int); 
 
 // user library functions (ulib.c)
 int stat(char*, struct stat*);

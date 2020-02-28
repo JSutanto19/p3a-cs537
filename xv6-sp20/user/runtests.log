@@ -1,0 +1,196 @@
+.
+starting build
+
+**********************************************************************
+
+Test build
+build xv6 using make
+
+**********************************************************************
+Trying to clean project using make clean
+make clean
+make: *** No rule to make target 'clean'.  Stop.
+Trying to build project using make
+make
+make: *** No targets specified and no makefile found.  Stop.
+
+
+test build FAILED
+ (build xv6 using make)
+ file 'cat.o' exists after make clean, removing
+ file 'ulib.o' exists after make clean, removing
+ file 'usys.o' exists after make clean, removing
+ file 'printf.o' exists after make clean, removing
+ file 'umalloc.o' exists after make clean, removing
+ file 'echo.o' exists after make clean, removing
+ file 'forktest.o' exists after make clean, removing
+ file 'grep.o' exists after make clean, removing
+ file 'init.o' exists after make clean, removing
+ file 'kill.o' exists after make clean, removing
+ file 'ln.o' exists after make clean, removing
+ file 'ls.o' exists after make clean, removing
+ file 'mkdir.o' exists after make clean, removing
+ file 'rm.o' exists after make clean, removing
+ file 'sh.o' exists after make clean, removing
+ file 'stressfs.o' exists after make clean, removing
+ file 'tester.o' exists after make clean, removing
+ file 'usertests.o' exists after make clean, removing
+ file 'wc.o' exists after make clean, removing
+ file 'zombie.o' exists after make clean, removing
+ file 'test_protect.o' exists after make clean, removing
+ make failed (error 2)
+ required file 'xv6.img' does not exist after make
+ required file 'fs.img' does not exist after make
+
+starting mprotect_basic
+
+**********************************************************************
+
+Test mprotect_basic
+check whether mprotect work properly
+
+**********************************************************************
+Running xv6 user progam /u/c/s/cs537-1/tests/p3a/ctests/mprotect_basic.c
+IOError: [Errno 2] No such file or directory: '/tmp/tmplUjieR/p/user/tester.c'
+
+
+test mprotect_basic FAILED (0 of 5)
+ (check whether mprotect work properly)
+ Unexpected exception [Errno 2] No such file or directory: '/tmp/tmplUjieR/p/user/tester.c'
+
+starting mprotect_fork
+
+**********************************************************************
+
+Test mprotect_fork
+check whether fork inherit the write bit from parent
+
+**********************************************************************
+Running xv6 user progam /u/c/s/cs537-1/tests/p3a/ctests/mprotect_fork.c
+IOError: [Errno 2] No such file or directory: '/tmp/tmplUjieR/p/user/tester.c'
+
+
+test mprotect_fork FAILED (0 of 5)
+ (check whether fork inherit the write bit from parent)
+ Unexpected exception [Errno 2] No such file or directory: '/tmp/tmplUjieR/p/user/tester.c'
+
+starting munprotect_basic
+
+**********************************************************************
+
+Test munprotect_basic
+check whether munprotect work properly
+
+**********************************************************************
+Running xv6 user progam /u/c/s/cs537-1/tests/p3a/ctests/munprotect_basic.c
+IOError: [Errno 2] No such file or directory: '/tmp/tmplUjieR/p/user/tester.c'
+
+
+test munprotect_basic FAILED (0 of 5)
+ (check whether munprotect work properly)
+ Unexpected exception [Errno 2] No such file or directory: '/tmp/tmplUjieR/p/user/tester.c'
+
+starting test_protect
+
+**********************************************************************
+
+Test test_protect
+check whether mprotect and munprotect work properly
+
+**********************************************************************
+Running xv6 user progam /u/c/s/cs537-1/tests/p3a/ctests/test_protect.c
+IOError: [Errno 2] No such file or directory: '/tmp/tmplUjieR/p/user/tester.c'
+
+
+test test_protect FAILED (0 of 8)
+ (check whether mprotect and munprotect work properly)
+ Unexpected exception [Errno 2] No such file or directory: '/tmp/tmplUjieR/p/user/tester.c'
+
+starting protect_error
+
+**********************************************************************
+
+Test protect_error
+check the error handling of mprotect and munprotect
+
+**********************************************************************
+Running xv6 user progam /u/c/s/cs537-1/tests/p3a/ctests/protect_error.c
+IOError: [Errno 2] No such file or directory: '/tmp/tmplUjieR/p/user/tester.c'
+
+
+test protect_error FAILED (0 of 5)
+ (check the error handling of mprotect and munprotect)
+ Unexpected exception [Errno 2] No such file or directory: '/tmp/tmplUjieR/p/user/tester.c'
+
+starting allocator_a
+
+**********************************************************************
+
+Test allocator_a
+test the alternate allocator in part 2
+
+**********************************************************************
+Running xv6 user progam /u/c/s/cs537-1/tests/p3a/ctests/allocator_a.c
+IOError: [Errno 2] No such file or directory: '/tmp/tmplUjieR/p/user/tester.c'
+
+
+test allocator_a FAILED (0 of 5)
+ (test the alternate allocator in part 2)
+ Unexpected exception [Errno 2] No such file or directory: '/tmp/tmplUjieR/p/user/tester.c'
+
+**********************************************************************
+Summary:
+test build FAILED
+ (build xv6 using make)
+ file 'cat.o' exists after make clean, removing
+ file 'ulib.o' exists after make clean, removing
+ file 'usys.o' exists after make clean, removing
+ file 'printf.o' exists after make clean, removing
+ file 'umalloc.o' exists after make clean, removing
+ file 'echo.o' exists after make clean, removing
+ file 'forktest.o' exists after make clean, removing
+ file 'grep.o' exists after make clean, removing
+ file 'init.o' exists after make clean, removing
+ file 'kill.o' exists after make clean, removing
+ file 'ln.o' exists after make clean, removing
+ file 'ls.o' exists after make clean, removing
+ file 'mkdir.o' exists after make clean, removing
+ file 'rm.o' exists after make clean, removing
+ file 'sh.o' exists after make clean, removing
+ file 'stressfs.o' exists after make clean, removing
+ file 'tester.o' exists after make clean, removing
+ file 'usertests.o' exists after make clean, removing
+ file 'wc.o' exists after make clean, removing
+ file 'zombie.o' exists after make clean, removing
+ file 'test_protect.o' exists after make clean, removing
+ make failed (error 2)
+ required file 'xv6.img' does not exist after make
+ required file 'fs.img' does not exist after make
+
+test mprotect_basic FAILED (0 of 5)
+ (check whether mprotect work properly)
+ Unexpected exception [Errno 2] No such file or directory: '/tmp/tmplUjieR/p/user/tester.c'
+
+test mprotect_fork FAILED (0 of 5)
+ (check whether fork inherit the write bit from parent)
+ Unexpected exception [Errno 2] No such file or directory: '/tmp/tmplUjieR/p/user/tester.c'
+
+test munprotect_basic FAILED (0 of 5)
+ (check whether munprotect work properly)
+ Unexpected exception [Errno 2] No such file or directory: '/tmp/tmplUjieR/p/user/tester.c'
+
+test test_protect FAILED (0 of 8)
+ (check whether mprotect and munprotect work properly)
+ Unexpected exception [Errno 2] No such file or directory: '/tmp/tmplUjieR/p/user/tester.c'
+
+test protect_error FAILED (0 of 5)
+ (check the error handling of mprotect and munprotect)
+ Unexpected exception [Errno 2] No such file or directory: '/tmp/tmplUjieR/p/user/tester.c'
+
+test allocator_a FAILED (0 of 5)
+ (test the alternate allocator in part 2)
+ Unexpected exception [Errno 2] No such file or directory: '/tmp/tmplUjieR/p/user/tester.c'
+
+Passed 0 of 7 tests.
+Overall 0 of 7
+Points 0 of 33

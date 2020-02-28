@@ -315,8 +315,14 @@ copyuvm(pde_t *pgdir, uint sz)
     if((mem = kalloc()) == 0)
       goto bad;
     memmove(mem, (char*)pa, PGSIZE);
-    if(mappages(d, (void*)i, PGSIZE, PADDR(mem), PTE_W|PTE_U) < 0)
+    
+    if((*pte & PTE_W) == 0){
+     if(mappages(d, (void*)i, PGSIZE, PADDR(mem), PTE_U) < 0)
       goto bad;
+    }  else{
+      if(mappages(d, (void*)i, PGSIZE, PADDR(mem), PTE_W|PTE_U) < 0)
+      goto bad;
+    }
   }
   return d;
 
@@ -379,7 +385,7 @@ int mprotect(void* addr, int len){
 
    pte_t *pte = walkpgdir(proc -> pgdir,(void*)va, 0);
    
-   if(pte){
+   if(pte != 0){
 
       for(int i = va ; i < (va + len * PGSIZE); i += PGSIZE){
          
@@ -388,7 +394,7 @@ int mprotect(void* addr, int len){
          }
          
          //if user or present bit is zero return -1
-         if((*pte & PTE_U) == 0 || (*pte & PTE_P) == 0){
+         if((*pte & PTE_U) == 0 || (*pte & PTE_P) == 0){ 
            return -1;
          }
 
@@ -417,14 +423,14 @@ int munprotect(void* addr, int len){
     
     pte_t* pte = walkpgdir(proc -> pgdir, (void*) va, 0);
 
-    if(pte){
+    if(pte != 0){
       
       for(int i = va; i < (va + len * PGSIZE); i += PGSIZE){
         if((pte = walkpgdir(proc -> pgdir, (void*)va, 0)) == 0){
           return -1;
         }
 
-        if((*pte & PTE_U) == 0 || (*pte & PTE_P) == 0){
+        if((*pte & PTE_U) == 0 || (*pte & PTE_P) == 0){ 
           return -1;
         }
       }
@@ -437,4 +443,8 @@ int munprotect(void* addr, int len){
 
     lcr3(PADDR(proc -> pgdir));
     return 0;
+}
+
+int dump_allocated(int *frames, int numframes) {
+  return 1;    
 }
