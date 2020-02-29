@@ -17,7 +17,8 @@ USER_PROGS := \
 	usertests\
 	wc\
 	zombie\
-    test_protect
+    test_protect\
+	dumptest
 
 USER_PROGS := $(addprefix user/, $(USER_PROGS))
 

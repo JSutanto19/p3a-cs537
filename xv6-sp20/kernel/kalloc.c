@@ -17,6 +17,9 @@ struct {
   struct run *freelist;
 } kmem;
 
+int frame[1000];
+int counter = 0;
+
 extern char end[]; // first address after kernel loaded from ELF file
 
 // Initialize free list of physical pages.
@@ -63,9 +66,26 @@ kalloc(void)
 
   acquire(&kmem.lock);
   r = kmem.freelist;
-  if(r)
+  if(r){
+    frame[counter] = (int)(char*)r;
+    counter++;
     kmem.freelist = r->next;
+  }
+    
   release(&kmem.lock);
   return (char*)r;
 }
 
+int dump_allocated(int *frames, int numframes) {
+  cprintf("%d\n",numframes);
+  if(numframes == 0){
+    return -1;
+  }
+  int j = 0;
+  for(int i = counter - 1; i >= (counter - numframes); i--){
+    frames[j] = frame[i];
+    
+    j++;
+  }
+  return 0;
+}

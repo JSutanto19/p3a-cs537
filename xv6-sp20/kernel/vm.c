@@ -445,6 +445,4 @@ int munprotect(void* addr, int len){
     return 0;
 }
 
-int dump_allocated(int *frames, int numframes) {
-  return 1;    
-}
+
