@@ -93,7 +93,7 @@ int sys_mprotect(void){
   int addr;
   int len;
 
-  if(argptr(0, (void*)&addr, sizeof(addr)) < 0 || argint(0,&len) < 0){
+  if(argptr(0, (void*)&addr, sizeof(addr)) < 0 || argint(1,&len) < 0){
       return -1;
   } 
 
@@ -116,7 +116,7 @@ int sys_munprotect(void){
     int addr;
     int len;
 
-    if(argptr(0, (void*) &addr, sizeof(addr)) < 0 || argint(0,&len) < 0){
+    if(argptr(0, (void*) &addr, sizeof(addr)) < 0 || argint(1,&len) < 0){
       return -1;
     } 
     
@@ -136,7 +136,7 @@ int sys_dump_allocated(void){
   int frames;
   int numframes;
 
-  if(argptr(0, (void*) &frames, sizeof(frames)) < 0 || argint(0,&numframes) < 0){
+  if(argptr(0, (void*) &frames, sizeof(frames)) < 0 || argint(1,&numframes) < 0){
     return -1;
   }
 

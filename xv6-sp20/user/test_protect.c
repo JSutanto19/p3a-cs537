@@ -18,11 +18,13 @@ main(int argc, char *argv[])
             printf(1, "write to protected page\n");
             for (int i = 3 * PGSIZE - 1; i >= 0; i--){
                 ((char *)ptr_aligned)[i] = ((char *)ptr_aligned)[i];
+                printf(1,"%d\n", i);
             }
             // this process should be killed
             printf(1,"test 1\n");
             printf(1, "TEST FAILED: write to protected page but not trigger page fault\n");
         } else{
+          //  printf(1,"test 1\n");
             printf(1, "Test FAILED: mprotect return non-zero value: %d\n", rnt_code);
         }
 
@@ -38,11 +40,13 @@ main(int argc, char *argv[])
             
             for (int i = PGSIZE; i < 2 * PGSIZE; i++){
                 ((char *)ptr_aligned)[i] = ((char *)ptr_aligned)[i];
+               // printf(1,"%d\n", i);
             }
             // this process should be killed
-            printf(1,"test 2\n");
+            //printf(1,"test 2\n");
             printf(1, "TEST FAILED: write to protected page but not trigger page fault\n");
         } else{
+           // printf(1, "test 1\n");
             printf(1, "Test FAILED: mprotect return non-zero value: %d\n", rnt_code);
         }
 

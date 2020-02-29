@@ -77,7 +77,7 @@ kalloc(void)
 }
 
 int dump_allocated(int *frames, int numframes) {
-  cprintf("%d\n",numframes);
+  
   if(numframes == 0){
     return -1;
   }

@@ -9,6 +9,10 @@ build xv6 using make
 **********************************************************************
 Trying to clean project using make clean
 make clean
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
+	-M -MG kernel/vm.c -MF kernel/vm.d -MT kernel/vm.d -MT kernel/vm.o
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
+	-M -MG kernel/kalloc.c -MF kernel/kalloc.d -MT kernel/kalloc.d -MT kernel/kalloc.o
 rm -rf kernel/bio.o kernel/console.o kernel/exec.o kernel/file.o kernel/fs.o kernel/ide.o kernel/ioapic.o kernel/kalloc.o kernel/kbd.o kernel/lapic.o kernel/main.o kernel/mp.o kernel/picirq.o kernel/pipe.o kernel/proc.o kernel/spinlock.o kernel/string.o kernel/swtch.o kernel/syscall.o kernel/sysfile.o kernel/sysproc.o kernel/timer.o kernel/trapasm.o kernel/trap.o kernel/uart.o kernel/vectors.o kernel/vm.o kernel/bootmain.o kernel/bootasm.o kernel/multiboot.o kernel/data.o kernel/bootother.o kernel/initcode.o kernel/bio.d kernel/console.d kernel/exec.d kernel/file.d kernel/fs.d kernel/ide.d kernel/ioapic.d kernel/kalloc.d kernel/kbd.d kernel/lapic.d kernel/main.d kernel/mp.d kernel/picirq.d kernel/pipe.d kernel/proc.d kernel/spinlock.d kernel/string.d kernel/swtch.d kernel/syscall.d kernel/sysfile.d kernel/sysproc.d kernel/timer.d kernel/trapasm.d kernel/trap.d kernel/uart.d kernel/vectors.d kernel/vm.d kernel/bootmain.d kernel/bootasm.d kernel/multiboot.d kernel/data.d kernel/bootother.d kernel/initcode.d kernel/vectors.S kernel/bootblock kernel/bootblock.out kernel/bootother.out kernel/initcode.out kernel/kernel bootother initcode xv6.img user/bin user/cat user/echo user/forktest user/grep user/init user/kill user/ln user/ls user/mkdir user/rm user/sh user/stressfs user/tester user/usertests user/wc user/zombie user/test_protect user/dumptest user/cat.o user/echo.o user/forktest.o user/grep.o user/init.o user/kill.o user/ln.o user/ls.o user/mkdir.o user/rm.o user/sh.o user/stressfs.o user/tester.o user/usertests.o user/wc.o user/zombie.o user/test_protect.o user/dumptest.o user/ulib.o user/usys.o user/printf.o user/umalloc.o user/cat.d user/echo.d user/forktest.d user/grep.d user/init.d user/kill.d user/ln.d user/ls.d user/mkdir.d user/rm.d user/sh.d user/stressfs.d user/tester.d user/usertests.d user/wc.d user/zombie.d user/test_protect.d user/dumptest.d user/ulib.d user/usys.d user/printf.d user/umalloc.d tools/mkfs tools/mkfs.o tools/mkfs.d fs fs.img .gdbinit .bochsrc dist
 Trying to build project using make
 make
@@ -236,15 +240,15 @@ ld  -m    elf_i386 -nostdlib --omagic \
 dd if=/dev/zero of=xv6.img count=10000
 10000+0 records in
 10000+0 records out
-5120000 bytes (5.1 MB, 4.9 MiB) copied, 0.0211593 s, 242 MB/s
+5120000 bytes (5.1 MB, 4.9 MiB) copied, 0.0198269 s, 258 MB/s
 dd if=kernel/bootblock of=xv6.img conv=notrunc
 1+0 records in
 1+0 records out
-512 bytes copied, 7.122e-05 s, 7.2 MB/s
+512 bytes copied, 0.000107294 s, 4.8 MB/s
 dd if=kernel/kernel of=xv6.img seek=1 conv=notrunc
 265+1 records in
 265+1 records out
-136060 bytes (136 kB, 133 KiB) copied, 0.000516798 s, 263 MB/s
+136084 bytes (136 kB, 133 KiB) copied, 0.000490722 s, 277 MB/s
 gcc -c  -iquote include -Wall -Werror -ggdb  -o tools/mkfs.o tools/mkfs.c
 gcc  tools/mkfs.o -o tools/mkfs
 mkdir -p fs
@@ -391,8 +395,24 @@ cpu0: starting
 init: starting sh
 $ tester
 tester
+len: 1
+8192
+totalPages: 12288
+i: 0
+len: 1
+8192
+totalPages: 12288
+i: 0
+len: 1
+8192
+totalPages: 12288
+i: 0
 write to a protected page
 pid 4 tester: trap 14 err 7 on cpu 0 eip 0xb9 addr 0x2000--kill proc
+len: 1
+8192
+totalPages: 12288
+i: 0
 write to an unprotected page
 TEST PASSED
 
@@ -454,6 +474,26 @@ cpu0: starting
 init: starting sh
 $ tester
 tester
+len: 1
+8192
+totalPages: 12288
+i: 0
+len: 1
+8192
+totalPages: 12288
+i: 0
+len: 1
+8192
+totalPages: 12288
+i: 0
+len: 1
+8192
+totalPages: 12288
+i: 0
+len: 1
+8192
+totalPages: 12288
+i: 0
 write to protected page in the child
 pid 4 tester: trap 14 err 7 on cpu 0 eip 0xb9 addr 0x2000--kill proc
 TEST PASSED
@@ -516,8 +556,32 @@ cpu0: starting
 init: starting sh
 $ tester
 tester
+len: 1
+8192
+totalPages: 12288
+i: 0
+len: 1
+8192
+totalPages: 12288
+i: 0
+len: 1
+8192
+totalPages: 12288
+i: 0
+len: 1
+8192
+totalPages: 12288
+i: 0
+len: 1
+8192
+totalPages: 12288
+i: 0
 write to protected page
 pid 4 tester: trap 14 err 7 on cpu 0 eip 0xaa addr 0x2000--kill proc
+len: 1
+8192
+totalPages: 12288
+i: 0
 write to an unprotected page
 TEST PASSED
 
@@ -579,16 +643,22 @@ cpu0: starting
 init: starting sh
 $ tester
 tester
+len: 3
+8192
+totalPages: 20480
+i: 0
 write to a protected page
-pid 4 tester: trap 14 err 7 on cpu 0 eip 0x95 addr 0x2fff--kill proc
+pid 4 tester: trap 14 err 7 on cpu 0 eip 0x95 addr 0x4fff--kill proc
 write to a protected page
-ERROR: write to a protected page but not trigger page fault
-TEST FAILED
+pid 5 tester: trap 14 err 7 on cpu 0 eip 0x139 addr 0x3000--kill proc
+write to a protected page
+pid 6 tester: trap 14 err 7 on cpu 0 eip 0x1ec addr 0x2000--kill proc
+write to an unprotected page
+TEST PASSED
 
 
-test test_protect FAILED (0 of 8)
+test test_protect PASSED (8 of 8)
  (check whether mprotect and munprotect work properly)
- tester failed
 
 starting protect_error
 
@@ -704,13 +774,12 @@ cpu0: starting
 init: starting sh
 $ tester
 tester
-7696
-pid 3 tester: trap 14 err 5 on cpu 0 eip 0xc8 addr 0xf60004--kill proc
-$ 
+100
+TEST PASSED
 
-test allocator_a FAILED (0 of 5)
+
+test allocator_a PASSED (5 of 5)
  (test the alternate allocator in part 2)
- tester failed
 
 **********************************************************************
 Summary:
@@ -726,17 +795,15 @@ test mprotect_fork PASSED (5 of 5)
 test munprotect_basic PASSED (5 of 5)
  (check whether munprotect work properly)
 
-test test_protect FAILED (0 of 8)
+test test_protect PASSED (8 of 8)
  (check whether mprotect and munprotect work properly)
- tester failed
 
 test protect_error PASSED (5 of 5)
  (check the error handling of mprotect and munprotect)
 
-test allocator_a FAILED (0 of 5)
+test allocator_a PASSED (5 of 5)
  (test the alternate allocator in part 2)
- tester failed
 
-Passed 5 of 7 tests.
-Overall 5 of 7
-Points 20 of 33
+Passed 7 of 7 tests.
+Overall 7 of 7
+Points 33 of 33
