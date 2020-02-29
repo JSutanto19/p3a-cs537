@@ -240,15 +240,15 @@ ld  -m    elf_i386 -nostdlib --omagic \
 dd if=/dev/zero of=xv6.img count=10000
 10000+0 records in
 10000+0 records out
-5120000 bytes (5.1 MB, 4.9 MiB) copied, 0.0198598 s, 258 MB/s
+5120000 bytes (5.1 MB, 4.9 MiB) copied, 0.019885 s, 257 MB/s
 dd if=kernel/bootblock of=xv6.img conv=notrunc
 1+0 records in
 1+0 records out
-512 bytes copied, 0.000140292 s, 3.6 MB/s
+512 bytes copied, 5.9944e-05 s, 8.5 MB/s
 dd if=kernel/kernel of=xv6.img seek=1 conv=notrunc
-265+1 records in
-265+1 records out
-135928 bytes (136 kB, 133 KiB) copied, 0.000525328 s, 259 MB/s
+257+1 records in
+257+1 records out
+131812 bytes (132 kB, 129 KiB) copied, 0.000482453 s, 273 MB/s
 gcc -c  -iquote include -Wall -Werror -ggdb  -o tools/mkfs.o tools/mkfs.c
 gcc  tools/mkfs.o -o tools/mkfs
 mkdir -p fs
@@ -391,21 +391,17 @@ init: starting sh
 $ tester
 tester
 len: 1
-8192
 totalPages: 12288
 i: 0
 len: 1
-8192
 totalPages: 12288
 i: 0
 len: 1
-8192
 totalPages: 12288
 i: 0
 write to a protected page
 pid 4 tester: trap 14 err 7 on cpu 0 eip 0xb9 addr 0x2000--kill proc
 len: 1
-8192
 totalPages: 12288
 i: 0
 write to an unprotected page
@@ -469,23 +465,18 @@ init: starting sh
 $ tester
 tester
 len: 1
-8192
 totalPages: 12288
 i: 0
 len: 1
-8192
 totalPages: 12288
 i: 0
 len: 1
-8192
 totalPages: 12288
 i: 0
 len: 1
-8192
 totalPages: 12288
 i: 0
 len: 1
-8192
 totalPages: 12288
 i: 0
 write to protected page in the child
@@ -550,29 +541,23 @@ init: starting sh
 $ tester
 tester
 len: 1
-8192
 totalPages: 12288
 i: 0
 len: 1
-8192
 totalPages: 12288
 i: 0
 len: 1
-8192
 totalPages: 12288
 i: 0
 len: 1
-8192
 totalPages: 12288
 i: 0
 len: 1
-8192
 totalPages: 12288
 i: 0
 write to protected page
 pid 4 tester: trap 14 err 7 on cpu 0 eip 0xaa addr 0x2000--kill proc
 len: 1
-8192
 totalPages: 12288
 i: 0
 write to an unprotected page
@@ -636,7 +621,6 @@ init: starting sh
 $ tester
 tester
 len: 3
-8192
 totalPages: 20480
 i: 0
 write to a protected page

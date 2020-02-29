@@ -463,7 +463,7 @@ int mprotect(void *addr, int len){
     uint va;
 	  va = (uint)addr;
     //PGSIZE = 4096
-    cprintf("%d\n", va);
+    // cprintf("%d\n", va);
 
 	  if((va % PGSIZE) != 0){
 	    return -1;
@@ -473,16 +473,15 @@ int mprotect(void *addr, int len){
     uint totalPages = va + numPages;
 	
 	  pte_t *pte;
-	  // pte = walkpgdir(proc->pgdir, (void*)va, 0);
-	  //if(pte){
-	    uint i = 0;
-      uint iterations = 0;
+	  
+	  uint i = 0;
+    uint iterations = 0;
       
       cprintf("totalPages: %d\n", totalPages);
       cprintf("i: %d\n", i);
 
-	    for (i = va; i < (va + numPages); i += PGSIZE){
-	        if((pte = walkpgdir(proc->pgdir, (void*)i, 0)) == 0){
+	  for (i = va; i < (va + numPages); i += PGSIZE){
+	    if((pte = walkpgdir(proc->pgdir, (void*)i, 0)) == 0){
 	              cprintf("walkpgdir return 0\n");
                 cprintf("iterations ran: %d\n", iterations);
                // cprintf("%d\n", i);
@@ -501,7 +500,7 @@ int mprotect(void *addr, int len){
           //     cprintf("%d\n", i);
 	        //     return -1;
           // }
-          iterations++;
+          // iterations++;
       
           
 	    }
@@ -512,7 +511,7 @@ int mprotect(void *addr, int len){
 	        *pte = PADDR(*pte) & (~PTE_W) ;
 	      }
 	        //cprintf("came here\n");
-	  //}
+	  
 	  lcr3(PADDR(proc->pgdir));
 	  return 0;
 }
@@ -531,8 +530,8 @@ int munprotect(void *addr, int len){
 	    for (i = va; i < (va + len*PGSIZE); i += PGSIZE){
 	        if((pte = walkpgdir(proc->pgdir, (void*)i, 0)) == 0)
 	            return -1;
-	        if((*pte & PTE_U) == 0 || (*pte & PTE_P) == 0)
-	            return -1;
+	        // if((*pte & PTE_U) == 0 || (*pte & PTE_P) == 0)
+	        //     return -1;
 	    }
 	
 	    for (i = va; i < (va + (len) *PGSIZE) ; i += PGSIZE){
