@@ -78,7 +78,7 @@ kalloc(void)
 
 int dump_allocated(int *frames, int numframes) {
   
-  if(numframes == 0){
+  if(numframes == 0 || numframes > counter){
     return -1;
   }
   int j = 0;
