@@ -387,40 +387,27 @@ int mprotect(void *addr, int len){
 	  }
    
     uint numPages = len * PGSIZE;
-    uint totalPages = va + numPages;
+//    uint totalPages = va + numPages;
 	
 	  pte_t *pte;
 	  
-	  uint i = 0;
-    uint iterations = 0;
+	uint i = 0;
+//    uint iterations = 0;
       
-      cprintf("totalPages: %d\n", totalPages);
-      cprintf("i: %d\n", i);
+     // cprintf("totalPages: %d\n", totalPages);
+     // cprintf("i: %d\n", i);
 
 	  for (i = va; i < (va + numPages); i += PGSIZE){
 	    if((pte = walkpgdir(proc->pgdir, (void*)i, 0)) == 0){
-	        cprintf("walkpgdir return 0\n");
-          cprintf("iterations ran: %d\n", iterations);
-          // cprintf("%d\n", i);
          return -1;
-      }
+        }
           
 
-	       if((*pte & PTE_U) == 0){
-          //   cprintf("user bit is not set\n");
-          //   cprintf("%d\n", i);
-             return -1;
-            } 
+	    if((*pte & PTE_U) == 0){
+          return -1;
+        } 
           
-          // if((*pte & PTE_P) == 0){
-          //     cprintf("pte is not present\n");
-          //     cprintf("%d\n", i);
-	        //     return -1;
-          // }
-          // iterations++;
-      
-          
-	    }
+      }
 	    
 	    for (i = va; i < (va + (len) *PGSIZE) ; i += PGSIZE){
 	      //cprintf("\nPTE %p\n", pte);
